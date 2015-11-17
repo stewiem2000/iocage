@@ -367,7 +367,11 @@ __get_jail_prop () {
             _found=1
             _value="$(zfs get -H -o value org.freebsd.iocage:$prop \
                          $_dataset)"
-            echo "$prop:$_value"
+            if [ "$_value" == '-' ] ; then
+                echo "$prop:none"
+            else
+                echo "$prop:$_value"
+            fi
         fi
     done
 
